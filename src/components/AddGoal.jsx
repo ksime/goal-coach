@@ -12,7 +12,7 @@ class AddGoal extends Component {
 
   addGoal() {
     const { title } = this.state;
-    const { email } = this.props;
+    const { email } = this.props.user;
     goalRef.push({ email, title });
   }
 
@@ -36,4 +36,4 @@ class AddGoal extends Component {
   }
 }
 
-export default connect(state => ({ email: state.email }), null)(AddGoal);
+export default connect(state => ({ user: state.user }), null)(AddGoal);

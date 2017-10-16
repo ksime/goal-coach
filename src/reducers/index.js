@@ -1,14 +1,11 @@
-let user = {
-  email: null,
-};
+import { combineReducers } from 'redux';
 
-export default (state = user, action) => {
-  if (action.type === 'SIGNED_IN') {
-    const { email } = action;
-    user = {
-      email,
-    };
-    return user;
-  }
-  return user;
-};
+import user from './user';
+import goals from './goals';
+import completedGoals from './completedGoals';
+
+export default combineReducers({
+  user,
+  goals,
+  completedGoals,
+});
