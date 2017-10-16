@@ -1,23 +1,14 @@
-export function logUser(email) {
-  const action = {
-    type: 'SIGNED_IN',
-    email,
-  };
-  return action;
-}
+export const logUser = email => ({
+  type: 'SIGNED_IN',
+  email,
+});
 
-export function setGoals(goals) {
-  const action = {
-    type: 'SET_GOALS',
-    goals,
-  };
-  return action;
-}
+export const setGoals = goals => ({
+  type: 'SET_GOALS',
+  goals,
+});
 
-export function setCompleted(completeGoals) {
-  const action = {
-    type: 'SET_COMPLETED',
-    completeGoals,
-  };
-  return action;
-}
+export const setCompleted = completeGoals => ({
+  type: 'SET_COMPLETED',
+  completeGoals,
+});

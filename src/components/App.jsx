@@ -6,7 +6,7 @@ import GoalList from './GoalList';
 import CompleteGoalList from './CompleteGoalList';
 
 class App extends Component {
-  signOut() {
+  static signOut() {
     firebaseApp.auth().signOut();
   }
 
@@ -24,7 +24,7 @@ class App extends Component {
           <CompleteGoalList />
           <hr />
         </div>
-        <button className="btn btn-danger" onClick={() => this.signOut()}>
+        <button className="btn btn-danger" onClick={() => App.signOut()}>
           Sign Out
         </button>
       </div>

@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setCompleted } from '../actions';
 import { completeGoalRef } from '../firebase';
 
 class CompleteGoalList extends Component {
+  static clearCompleted() {
+    completeGoalRef.set([]);
+  }
+
   componentDidMount() {
     completeGoalRef.on('value', (snap) => {
       const completeGoals = [];
@@ -12,18 +17,14 @@ class CompleteGoalList extends Component {
         completeGoals.push({ email, title });
       });
       this.props.setCompleted(completeGoals);
-      console.log(this.props);
     });
   }
 
-  clearCompleted() {
-    completeGoalRef.set([]);
-  }
-
   render() {
+    const { completeGoals } = this.props;
     return (
       <div>
-        {this.props.completeGoals.map((completeGoal) => {
+        {completeGoals.map((completeGoal) => {
           const { title, email } = completeGoal;
           return (
             <div key={Math.random()}>
@@ -31,7 +32,7 @@ class CompleteGoalList extends Component {
             </div>
           );
         })}
-        <button className="btn btn-primary" onClick={() => this.clearCompleted()}>
+        <button className="btn btn-primary" onClick={() => CompleteGoalList.clearCompleted()}>
           Clear All
         </button>
       </div>
@@ -39,11 +40,21 @@ class CompleteGoalList extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  console.log('mapStateToProps', state);
-  return {
-    completeGoals: state.completedGoals,
-  };
+const mapStateToProps = state => ({
+  completeGoals: state.completedGoals,
+});
+
+CompleteGoalList.propTypes = {
+  setCompleted: PropTypes.func,
+  completeGoals: PropTypes.arrayOf(PropTypes.object),
+};
+
+CompleteGoalList.defaultProps = {
+  setCompleted: completeGoals => ({
+    type: 'SET_COMPLETED',
+    completeGoals,
+  }),
+  completeGoals: [],
 };
 
 export default connect(mapStateToProps, { setCompleted })(CompleteGoalList);

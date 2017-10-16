@@ -15,13 +15,11 @@ class SignIn extends Component {
   }
 
   signIn() {
-    console.log(this.state);
     const { email, password } = this.state;
     firebaseApp
       .auth()
       .signInWithEmailAndPassword(email, password)
       .catch((error) => {
-        console.log(error);
         this.setState({ error });
       });
   }
@@ -51,7 +49,7 @@ class SignIn extends Component {
         </div>
         <div>{this.state.error.message}</div>
         <div>
-          <Link to="/signup">Sign up instead</Link>
+          <Link href="signup" to="/signup">Sign up instead</Link>
         </div>
       </div>
     );

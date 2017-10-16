@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { goalRef } from '../firebase';
 
@@ -35,5 +36,15 @@ class AddGoal extends Component {
     );
   }
 }
+
+AddGoal.propTypes = {
+  user: PropTypes.shape({
+    email: PropTypes.string,
+  }),
+};
+
+AddGoal.defaultProps = {
+  user: {},
+};
 
 export default connect(state => ({ user: state.user }), null)(AddGoal);
